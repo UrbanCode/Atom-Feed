@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    © Copyright IBM Corporation 2017.
+    This is licensed under the following license.
+    The Eclipse Public 1.0 License (http://www.eclipse.org/legal/epl-v10.html)
+    U.S. Government Users Restricted Rights:  Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+-->
+<plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1">
+  <header>
+    <identifier id="com.urbancode.air.plugin.atomFeedInjector" name="Atom Feed Injector" version="1"/>
+    	<description>
+			This plugin provides a step to inject xml into an Atom Feed file.
+	 	</description>
+    <tag>Feed/Atom</tag>
+  </header>
+
+<!--
+==================================================================================
+Inject Entry
+-->
+
+  <step-type name="Inject Entry">
+    <description>Inject an Entry into an Atom Feed xml file.</description>
+    <properties>
+      <property name="url" required="true">
+        <property-ui type="textBox" label="Atom Feed URL" description="Full URL to download the complete Atom XML Feed."/>
+      </property>
+      <property name="id" required="true">
+        <property-ui type="textBox" label="ID" description="Identifier for the Atom Feed Entry."/>
+      </property>
+      <property name="title" required="true">
+        <property-ui type="textBox" label="Title" description="Title for the Atom Feed Entry."/>
+      </property>
+      <property name="summary"  required="true">
+        <property-ui type="textBox" label="Summary" description="Description for the Atom Feed Entry."/>
+      </property>
+      <property name="link" >
+        <property-ui type="textBox" label="Link" description="Link for the Atom Feed Entry."/>
+      </property>
+      <property name="atomIndex" >
+        <property-ui type="textBox" label="Atom Feed Index" description="Index to insert the Entry.
+            An empty value will result in adding the entry as the top child.
+            Typically, the listing of Entries begins after the Atom Feed's general information."/>
+      </property>
+    </properties>
+    <post-processing><![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]></post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes"/>
+      <arg file="injectEntry.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+ </plugin>
