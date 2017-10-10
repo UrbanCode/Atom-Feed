@@ -36,7 +36,7 @@
 
 import org.apache.tools.ant.filters.ReplaceTokens
 
-def pluginName="Atom-Feed-Injector-UCD"
+def pluginName="Atom-Feed-UCD"
 def pluginVersion = project.hasProperty('pluginVersion') ? project.getProperty('pluginVersion') : 'dev'
 
 apply plugin: 'groovy'

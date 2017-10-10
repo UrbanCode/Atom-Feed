@@ -7,7 +7,7 @@
 -->
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1">
   <header>
-    <identifier id="com.urbancode.air.plugin.atomFeedInjector" name="Atom Feed Injector" version="1"/>
+    <identifier id="com.urbancode.air.plugin.atomFeed" name="Atom Feed" version="1"/>
     	<description>
 			This plugin provides a step to inject xml into an Atom Feed file.
 	 	</description>
