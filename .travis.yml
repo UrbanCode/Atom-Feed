@@ -1,0 +1,23 @@
+language: groovy
+rvm:
+- 1.8.8
+install:
+- gradle build
+before_script:
+- gradle test
+- export VERSION=${TRAVIS_TAG}.${TRAVIS_COMMIT:0:7}
+script:
+- gradle -PpluginVersion=${VERSION}
+jdk:
+- oraclejdk8
+- openjdk7
+deploy:
+  provider: releases
+  api_key:
+    secure: o35QdhJMegJGkOpK9eYjgJl6/3KDyvshgNkdpbav+LxtjuMvmuOPVIE1Q8ueoZL5c2XUvFOsfLA2FooXsyi1XzS0j1e5DD+37jpX9uaToqwOYbDg4pZo0wrZConzQUoUT13DzjDcFLPDrKwUeYTRg8+01WoO67E4gNmDKsqrfLpQglkDH8zackVbg9xaWrwOcdnn+cySvfNQ+uvSvCb+z7eBS3HkesalIe07IMNkmr1ZdbtunrBhU3E1KzyAWmCbhPX5Qlws3D/apJ1XUwKCGSjKqRPgtlluNXampItB9fRmyJ8OhpPCygk6kYwIK7405fY7SpMAYCimJjmjA/u+eb+qfwlj3DEYrgKpVKMvZdXcsIVyv6SWHUX7Ptww2zZUvMJJLb9scBe/A+cMyBt9pqFf6omBRo7XnIUxxQUAvoJO82nuvBSCggaa2wtYzCm6w1SdYrPm7R60OjS//XftEpayHtEu5WRLYw20+JRoFFkN4lRTGMSXlEl6v1YZNNIAVRsxOxkKeDzbvhVS27hKjRRfm725gJ+M+2wuB1XhMFArBVBLPrBieSO3SoBpqXZjrBEd30isuYtTA1sFVOgdgPzo3kkRbmxo1Ehm9pmyYtsU4LoCNz9y8z9bUS/06l3+KFu0UpiM3Vev6TfzXVNUz/wzk8na43DYy0TwXt/VBfM=
+  file_glob: true
+  file: build/distributions/*.zip
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: IBM-UrbanCode/Atom-Feed
