@@ -1,4 +1,4 @@
-# IBM UrbanCode Deploy - Atom Feed Plug-in
+# IBM UrbanCode Deploy - Atom Feed Plug-in[![Build Status](https://travis-ci.org/IBM-UrbanCode/Atom-Feed.svg?branch=master)](https://travis-ci.org/IBM-UrbanCode/Atom-Feed)
 ---
 Note: This is not the plugin distributable! This is the source code. To find the installable plugin, go into the 'Releases' tab, and download a stable version.
 
