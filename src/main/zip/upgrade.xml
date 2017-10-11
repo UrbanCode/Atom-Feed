@@ -9,7 +9,13 @@
         xmlns="http://www.urbancode.com/UpgradeXMLSchema_v1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <!-- <migrate to-version="2">
-    </migrate> -->
+    <migrate to-version="2">
+        <migrate-command name="Inject Entry">
+            <migrate-properties>
+                <migrate-property name="filePath" default=""/>
+                <migrate-property name="url" default=""/>
+            </migrate-properties>
+        </migrate-command>
+    </migrate>
 
 </plugin-upgrade>

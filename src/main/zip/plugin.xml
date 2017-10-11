@@ -7,7 +7,7 @@
 -->
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1">
   <header>
-    <identifier id="com.urbancode.air.plugin.atomFeed" name="Atom Feed" version="1"/>
+    <identifier id="com.urbancode.air.plugin.atomFeed" name="Atom Feed" version="2"/>
     	<description>
 			This plugin provides a step to inject xml into an Atom Feed file.
 	 	</description>
@@ -22,8 +22,8 @@ Inject Entry
   <step-type name="Inject Entry">
     <description>Inject an Entry into an Atom Feed xml file.</description>
     <properties>
-      <property name="url" required="true">
-        <property-ui type="textBox" label="Atom Feed URL" description="Full URL to download the complete Atom XML Feed."/>
+      <property name="filePath" required="true">
+        <property-ui type="textBox" label="Atom Feed Path" description="File path to the Atom XML Feed. Note: This file will be modified on completion."/>
       </property>
       <property name="id" required="true">
         <property-ui type="textBox" label="ID" description="Identifier for the Atom Feed Entry."/>
@@ -37,6 +37,11 @@ Inject Entry
       <property name="link" >
         <property-ui type="textBox" label="Link" description="Link for the Atom Feed Entry."/>
       </property>
+        <property name="url" >
+          <property-ui type="textBox" label="Atom Feed URL" description="Full URL to download the complete Atom XML Feed.
+              If specified, the step will download the XML file from this location and save it to the path specified
+              in the Atom Feed Path property."/>
+        </property>
       <property name="atomIndex" >
         <property-ui type="textBox" label="Atom Feed Index" description="Index to insert the Entry.
             An empty value will result in adding the entry as the top child.

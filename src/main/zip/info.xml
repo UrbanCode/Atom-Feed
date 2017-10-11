@@ -137,9 +137,14 @@
       you should just append to the existing 'LATEST' tag.
       -->
 
-      <release-note plugin-version="1">
-		Initial GitHub release for the IBM UrbanCode Development Community.
-      </release-note>
+    <release-note plugin-version="1">
+        Initial GitHub release for the IBM UrbanCode Development Community.
+    </release-note>
+    <release-note plugin-version="2">
+        Inject Entry step now expects an Atom Feed file path. Specified file will be modified with injected Entry.
+        URL field is optional and, if specified, will take priority over the Atom Feed Path.
+        Updated date format now follows RFC-3339 standard.
+    </release-note>
 
   </release-notes>
 </pluginInfo>

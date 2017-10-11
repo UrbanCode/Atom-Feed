@@ -14,6 +14,7 @@ import org.xml.sax.SAXParseException
 def apTool = new AirPluginTool(this.args[0], this.args[1])
 def props = apTool.getStepProperties()
 
+def filePath = props['filePath']
 def id = props['id']
 def title = props['title']
 def link = props['link']
@@ -27,18 +28,26 @@ if (atomIndex == null || !atomIndex.isInteger()) {
 }
 
 Date date = new Date()
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
 String updated = sdf.format(date)
-// Retrieve XML from URL
+
+// Retrieve XML from URL or File
 String xmlDocStr = ""
-try {
-    xmlDocStr = new URL(url).getText()
-} catch (Exception ex) {
-    throw new Exception("[Error] Invalid or unreachable Atom Feed URL.")
+File atom = new File(filePath)
+if (url) {
+    try {
+        xmlDocStr = new URL(url).getText("UTF-8")
+    } catch (Exception ex) {
+        throw new Exception("[Error] Invalid or unreachable Atom Feed URL.")
+    }
+} else if (atom.isFile()){
+    xmlDocStr = atom.getText("UTF-8")
+} else {
+    throw new RuntimeException("[Error] Must specify a valid Atom Feed File or URL.")
 }
 
 if (!xmlDocStr) {
-    throw new RuntimeException("[Error] Unable to find content from the specified Atom Feed URL.")
+    throw new RuntimeException("[Error] Atom Feed content is empty.")
 }
 
 // Create new Entry XML
@@ -83,12 +92,11 @@ if (xmlDoc.updated) {
 }
 //println XmlUtil.serialize(xmlDoc)
 
-// Create new Atom file
-File atom = new File("atom-feed.xml")
-atom << XmlUtil.serialize(xmlDoc)
+// Update Atom file
+atom.setText(XmlUtil.serialize(xmlDoc), "UTF-8")
 
 apTool.setOutputProperty("AtomFeed", atom.getCanonicalPath())
 apTool.setOutputProperties()
 
 println ""
-println "Successfully added new Atom Feed Entry!"
+println "Successfully injected new Atom Feed Entry!"
